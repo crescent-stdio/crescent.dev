@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    <title>To the Moon</title>
+  </head>
+  <body>
+    <!-- Application Canvas -->
+    <main>
+      <canvas id="bg"></canvas>
+      <header class="title">
+        <a href="https://www.crescent.dev">
+          <h1>☾</h1>
+        </a>
+        <section class="nav-link">
+          <a
+            href="https://blog.crescent.dev"
+            target="_blank"
+          >
+            <h4>Blog</h4>
+          </a>
+          <a
+            href="https://github.com/crescent-stdio"
+            target="_blank"
+          >
+            <h4>GitHub</h4>
+          </a>
+          <a
+            href="https://crescent.studio"
+            target="_blank"
+          >
+            <h4>Portfolio</h4>
+          </a>
+        </section>
+      </header>
+
+      <section id="quote-section">
+        <div class="main-quote">
+          <h1>세상의 어둠을 행복으로 밝혀주는 달빛처럼 🌃</h1>
+          <div class="text-change">
+            <p class="element">- 초승달☾ -</p>
+            <p class="element">- Crescent☾ -</p>
+            <p class="element">- 박한나 -</p>
+            <p class="element">- Hannah Park -</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>Hannah Park© 2024. All rights reserved.</p>
+    </footer>
+    <!-- Swiper JS -->
+
+    <script
+      id="vertexShader"
+      type="x-shader/x-vertex"
+    >
+      varying vec3 vNormal;
+      varying vec3 vPositionNormal;
+      void main()
+      {
+        vNormal = normalize( normalMatrix * normal );
+        vPositionNormal = normalize(( modelViewMatrix * vec4(position, 1.0) ).xyz);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }
+    </script>
+    <script
+      id="fragmentShader"
+      type="x-shader/x-vertex"
+    >
+      uniform vec3 glowColor;
+      uniform float b;
+      uniform float p;
+      uniform float s;
+      varying vec3 vNormal;
+      varying vec3 vPositionNormal;
+      void main(){
+        float a = pow( b + s * abs(dot(vNormal, vPositionNormal)), p ) * 20.;
+        gl_FragColor = vec4( glowColor, a );
+      }
+    </script>
+  </body>
+</html>
